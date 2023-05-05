@@ -25,8 +25,6 @@ public class UserServiceImp implements UserService {
     }
 
 
-
-
     @Override
     @Transactional
     public List<User> getAllUser() {
