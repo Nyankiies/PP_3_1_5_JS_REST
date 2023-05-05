@@ -15,7 +15,7 @@ public class Role implements GrantedAuthority {
     private int id;
     @Column(name="name")
     private String name;
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "role_id"),
@@ -33,7 +33,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return null;
+        return getName();
     }
 
     public Role() {
