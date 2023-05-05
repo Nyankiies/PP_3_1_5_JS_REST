@@ -15,7 +15,7 @@ public class Role implements GrantedAuthority {
     private int id;
     @Column(name="name")
     private String name;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "role_id"),

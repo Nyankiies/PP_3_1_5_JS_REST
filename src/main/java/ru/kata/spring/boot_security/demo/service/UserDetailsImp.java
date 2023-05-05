@@ -20,18 +20,13 @@ public class UserDetailsImp implements UserDetailsService {
     public void setUserRepositories(UserRepositories userRepositories) {
         this.userRepositories = userRepositories;
     }
-
-    public User findByUsername(String username) {
-        return userRepositories.findByUsername(username);
-    }
-
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user =Optional.ofNullable(findByUsername(username));
-        if (user.isEmpty()) {
+       User user = userRepositories.findByUsername(username);
+        if (user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }
-        return user.get();
+        return user;
     }
 }
