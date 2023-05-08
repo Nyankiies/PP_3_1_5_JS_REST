@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -26,7 +26,7 @@ public class User implements UserDetails {
     @Column(name= "password")
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE , fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -47,6 +47,16 @@ public class User implements UserDetails {
 
     public User(String name, String lastName, int age, String email, String password, Set<Role> roles) {
         this.username = name;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public User(Long id, String username, String lastName, int age, String email, String password, Set<Role> roles) {
+        this.id = id;
+        this.username = username;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
@@ -134,5 +144,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getRolesString() {
+        String roleSet = roles.stream().map(m->m.toString()).collect(Collectors.joining(", "));
+        return roleSet;
     }
 }
