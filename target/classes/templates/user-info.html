@@ -12,11 +12,11 @@
 
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <!--        <p class="navbar-brand text-white">-->
-        <!--            <b><span class="align-middle" th:text="${user.login}"></span></b>-->
-        <!--            <span class="align-middle">with roles:</span>-->
-        <!--            <span class="align-middle" th:text="${user.roles}"></span>-->
-        <!--        </p>-->
+        <p class="navbar-brand text-white">
+            <b><span class="align-middle" th:utext="${users.getEmail()}"></span></b>
+            <span class="align-middle">with roles:</span>
+            <span class="align-middle" th:utext="${users.getRolesString()}"></span>
+        </p>
         <form th:action="@{/logout}" method="post">
             <button type="submit" class="btn btn-dark text-secondary">Logout</button>
         </form>
@@ -64,6 +64,9 @@
                                 <br>
                                 <label for="email"><b>Email</b></label>
                                 <input th:name="email" th:type="text" class="form-control" id="email" required/>
+                                <br>
+                                <label for="password"><b>Password</b></label>
+                                <input th:name="password" th:type="text" class="form-control" id="password" required/>
                                 <br>
                                 <label for="roles"><b>Role</b></label>
                                 <select class="form-control" id ="roles"

@@ -29,9 +29,9 @@
         <div class="row">
             <div class="p-0 col-2">
                 <div class="nav flex-column nav-pills pt-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" href="/admin" sec:authorize="hasAuthority('ADMIN')" role="tab"
+                    <a class="nav-link active" href="/admin/" sec:authorize="hasAuthority('ADMIN')" role="tab"
                        aria-controls="v-pills-home" aria-selected="true">Admin</a>
-                    <a class="nav-link" href="/user" sec:authorize="(hasAnyAuthority('ADMIN', 'USER'))"
+                    <a class="nav-link" href="/user/" sec:authorize="(hasAnyAuthority('ADMIN', 'USER'))"
                        role="tab"
                        aria-controls="v-pills-profile" aria-selected="false">User</a>
                 </div>
@@ -67,7 +67,7 @@
                                         <td th:utext="${user.getLastName()}"></td>
                                         <td th:utext="${user.getAge()}"></td>
                                         <td th:utext="${user.getEmail()}"></td>
-                                        <td th:utext="${user.getRoles()}"></td>
+                                        <td th:utext="${user.getRolesString()}"></td>
                                         <td>
                                             <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                                data-bs-target="#editModal"
@@ -87,7 +87,7 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                     </div>
-                                                    <form th:action="@{/admin/updateInfo(id=${user.getId()})}"
+                                                    <form th:action="@{/admin/updateInfo/{id}(id=${user.getId()})}"
                                                           th:object="${user}" th:method="PUT">
                                                         <div class="modal-body col-md text-center">
                                                             <br>
@@ -114,6 +114,11 @@
                                                             <input th:name="email" th:type="text"
                                                                    class="form-control" id="email0"
                                                                    th:value="${user.getEmail()}"/>
+                                                            <br>
+                                                            <label for="password0"><b>Password</b></label>
+                                                            <input th:name="password" type="text"
+                                                                   class="form-control" id="password0"
+                                                                   th:value="${user.getPassword()}"/>
                                                             <br>
                                                             <label for="roles"><b>Role</b></label>
                                                             <select class="form-control" id ="roles"
