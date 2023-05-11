@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -26,7 +28,8 @@ public class User implements UserDetails {
     @Column(name= "password")
     private String password;
 
-    @ManyToMany(cascade = CascadeType.MERGE , fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE , fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -99,6 +102,11 @@ public class User implements UserDetails {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
     @Override
     public String toString() {

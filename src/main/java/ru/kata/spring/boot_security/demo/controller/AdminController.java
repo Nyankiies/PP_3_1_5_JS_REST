@@ -40,7 +40,6 @@ public class AdminController {
         List<User> allUser = userService.getAllUser();
         User userAuth = userRepositories.findByUsername(principal.getName());
         model.addAttribute("users", userAuth);
-        System.out.println(userAuth.toString());
         model.addAttribute("AllUser", allUser);
         model.addAttribute("AllRole", roleService.getAllRoles());
         return "admin";
@@ -62,8 +61,8 @@ public class AdminController {
     }
     @PutMapping("/updateInfo/{id}")
     public String updateUser(@ModelAttribute("user") User user) {
-        User user1 = userRepositories.findByUsername(user.getUsername());
-        userService.saveUser(user1);
+        System.out.println(user.toString());
+        userService.saveUser(user);
         return "redirect:/admin/";
     }
     @DeleteMapping ("/deleteInfo")

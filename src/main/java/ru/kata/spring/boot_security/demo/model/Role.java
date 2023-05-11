@@ -21,15 +21,6 @@ public class Role implements GrantedAuthority {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> users;
-
-    public void addUserToRole(User user) {
-        if (users == null) {
-            users = new ArrayList<>();
-        }
-        users.add(user);
-    }
-
 
     @Override
     public String getAuthority() {
@@ -41,14 +32,6 @@ public class Role implements GrantedAuthority {
 
     public Role(String name) {
         this.name = name;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     public int getId() {
