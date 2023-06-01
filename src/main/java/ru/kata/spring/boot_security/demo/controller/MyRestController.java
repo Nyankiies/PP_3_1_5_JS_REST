@@ -39,8 +39,6 @@ public class MyRestController {
         this.roleRepositories = roleRepositories;
     }
 
-    @Autowired
-
     @GetMapping("/users")
     public List<User> showAllUser() {
         List<User> allUsers = userService.getAllUser();

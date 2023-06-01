@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -79,29 +78,6 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -156,8 +132,4 @@ public class User implements UserDetails {
         return true;
     }
 
-    public String getRolesString() {
-        String roleSet = roles.stream().map(m->m.toString()).collect(Collectors.joining(", "));
-        return roleSet;
-    }
 }
