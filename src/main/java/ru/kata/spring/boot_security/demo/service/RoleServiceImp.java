@@ -11,6 +11,7 @@ public class RoleServiceImp implements RoleService {
 
     private RoleRepositories roleRepositories;
 
+
     @Autowired
     public void setRoleRepositories(RoleRepositories roleRepositories) {
         this.roleRepositories = roleRepositories;
@@ -19,5 +20,10 @@ public class RoleServiceImp implements RoleService {
     @Override
     public List<Role> getAllRoles() {
         return roleRepositories.findAll();
+    }
+
+    @Override
+    public Role findById(Long id) {
+        return roleRepositories.findById(id);
     }
 }

@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.repositories.RoleRepositories;
-import ru.kata.spring.boot_security.demo.repositories.UserRepositories;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
@@ -18,25 +16,15 @@ import java.util.List;
 public class MyRestController {
 
     private UserService userService;
-    private UserRepositories userRepositories;
     private RoleService roleService;
-    private RoleRepositories roleRepositories;
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
     @Autowired
-    public void setUserRepositories(UserRepositories userRepositories) {
-        this.userRepositories = userRepositories;
-    }
-    @Autowired
     public void setRoleService(RoleService roleService) {
         this.roleService = roleService;
-    }
-    @Autowired
-    public void setRoleRepositories(RoleRepositories roleRepositories) {
-        this.roleRepositories = roleRepositories;
     }
 
     @GetMapping("/users")
@@ -46,7 +34,7 @@ public class MyRestController {
     }
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable Long id) {
-        User user = userRepositories.getById(id);
+        User user = userService.getById(id);
         return user;
     }
     @PostMapping("/users")
@@ -73,12 +61,12 @@ public class MyRestController {
     }
     @GetMapping("/roles/{id}")
     public Role getRolesById(@PathVariable Long id) {
-        Role roleById = roleRepositories.findById(id);
+        Role roleById = roleService.findById(id);
         return roleById;
     }
     @GetMapping("/viewUser")
     public User showUser(Principal principal) {
-        User users = userRepositories.findByUsername(principal.getName());
+        User users = userService.findByUsername(principal.getName());
         return users;
     }
 }
